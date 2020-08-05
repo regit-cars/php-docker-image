@@ -4,7 +4,7 @@ FROM php:7.4-fpm-alpine
 RUN apk --no-cache --update add \
     gcc musl-dev make curl bash openssl openssl-dev autoconf shadow \
     freetype-dev libjpeg-turbo-dev libpng-dev curl libxml2-dev libmemcached-dev icu-dev g++ \
-    libzip libzip-dev libressl3.0-libcrypto oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
+    libzip libzip-dev libressl3.1-libcrypto oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
     gettext-dev gmp-dev imap-dev unzip git
 
 # install latest version php redis extension
@@ -44,6 +44,7 @@ RUN mkdir /composer
 ENV COMPOSER_HOME="/composer"
 RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/php-parallel-lint \
  sensiolabs/security-checker consolidation/robo:^1.0 --no-interaction
+RUN chmod -R 0777 /composer/cache
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v2.phar
 RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.phar

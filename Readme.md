@@ -14,6 +14,7 @@ Run `docker login` and enter your username and password to login
 
 #### 2. To rebuild CI config
 ```
+docker pull php:7.4-fpm-alpine
 docker build -t regitcars/php-fpm:ci ci
 docker push regitcars/php-fpm:ci
 ```

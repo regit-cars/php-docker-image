@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:rc-fpm-alpine
 
 # install packages and build tools
 RUN apk --no-cache --update add \
@@ -6,10 +6,6 @@ RUN apk --no-cache --update add \
     freetype-dev libjpeg-turbo-dev libpng-dev curl libxml2-dev libmemcached-dev icu-dev g++ \
     libzip libzip-dev libressl3.1-libcrypto oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
     gettext-dev gmp-dev imap-dev unzip git
-
-# install latest version php redis extension
-RUN pecl install memcached \
-    && rm -rf /tmp/pear
 
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo
@@ -30,7 +26,8 @@ RUN docker-php-ext-install xsl
 RUN docker-php-ext-install mbstring
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
-RUN docker-php-ext-enable memcached imap
+RUN docker-php-ext-enable imap
+
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
@@ -60,6 +57,16 @@ RUN chmod +x /usr/local/bin/phpmd
 RUN chmod +x /usr/local/bin/phpcpd
 RUN chmod +x /usr/local/bin/psalm
 
+COPY php.ini /usr/local/etc/php/php.ini
+COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
+
+
+RUN git clone https://github.com/FriendsOfPHP/pickle.git /usr/local/bin/pickle
+RUN cd /usr/local/bin/pickle && composer install --ignore-platform-reqs
+
+RUN /usr/local/bin/pickle/bin/pickle install xdebug --version-override 3.0.0
+RUN /usr/local/bin/pickle/bin/pickle install memcached
+RUN docker-php-ext-enable memcached xdebug
 
 WORKDIR /var/www/app
 

@@ -25,4 +25,8 @@ docker build -t regitcars/php-fpm:dev dev
 docker push regitcars/php-fpm:dev
 ```
 
-
+#### 4. To rebuild dev-next config
+```
+docker build -t regitcars/php-fpm:dev-next dev-next
+docker push regitcars/php-fpm:dev-next
+```

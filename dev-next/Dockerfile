@@ -41,7 +41,7 @@ RUN mkdir /composer
 ENV COMPOSER_HOME="/composer"
 RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/php-parallel-lint \
  sensiolabs/security-checker consolidation/robo:^1.0 --no-interaction
-RUN chmod -R 0777 /composer/cache
+
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v2.phar
 RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.phar
@@ -67,6 +67,8 @@ RUN cd /usr/local/bin/pickle && composer install --ignore-platform-reqs
 RUN /usr/local/bin/pickle/bin/pickle install xdebug --version-override 3.0.0
 RUN /usr/local/bin/pickle/bin/pickle install memcached
 RUN docker-php-ext-enable memcached xdebug
+
+RUN chmod -R 0777 /composer/cache
 
 WORKDIR /var/www/app
 

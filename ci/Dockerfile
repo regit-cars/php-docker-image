@@ -60,6 +60,7 @@ RUN chmod +x /usr/local/bin/phpmd
 RUN chmod +x /usr/local/bin/phpcpd
 RUN chmod +x /usr/local/bin/psalm
 
+RUN php-cs-fixer self-update
 
 WORKDIR /var/www/app
 

@@ -43,7 +43,7 @@ ENV PATH="/usr/local/bin:/composer/vendor/bin:${PATH}"
 RUN mkdir /composer
 ENV COMPOSER_HOME="/composer"
 RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/php-parallel-lint \
- sensiolabs/security-checker consolidation/robo:^1.0 --no-interaction
+ consolidation/robo:^1.0 --no-interaction
 RUN chmod -R 0777 /composer/cache
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v2.phar

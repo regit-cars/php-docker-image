@@ -1,4 +1,4 @@
-FROM php:rc-fpm-alpine
+FROM php:8.0-fpm-alpine
 
 # install packages and build tools
 RUN apk --no-cache --update add \
@@ -40,7 +40,7 @@ ENV PATH="/usr/local/bin:/composer/vendor/bin:${PATH}"
 RUN mkdir /composer
 ENV COMPOSER_HOME="/composer"
 RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/php-parallel-lint \
- sensiolabs/security-checker consolidation/robo:^1.0 --no-interaction
+ consolidation/robo:^1.0 --no-interaction
 
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v2.phar
@@ -64,7 +64,7 @@ COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 RUN git clone https://github.com/FriendsOfPHP/pickle.git /usr/local/bin/pickle
 RUN cd /usr/local/bin/pickle && composer install --ignore-platform-reqs
 
-RUN /usr/local/bin/pickle/bin/pickle install xdebug --version-override 3.0.0
+RUN /usr/local/bin/pickle/bin/pickle install xdebug
 RUN /usr/local/bin/pickle/bin/pickle install memcached
 RUN docker-php-ext-enable memcached xdebug
 

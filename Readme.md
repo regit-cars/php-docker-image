@@ -25,9 +25,15 @@ docker build -t regitcars/php-fpm:dev dev
 docker push regitcars/php-fpm:dev
 ```
 
-#### 4. To rebuild dev-next config
+#### 4. To rebuild CI-next config
 ```
 docker pull php:8.0-fpm-alpine
+docker build -t regitcars/php-fpm:ci-next ci-next
+docker push regitcars/php-fpm:ci-next
+```
+
+#### 5. To rebuild dev-next config
+```
 docker build -t regitcars/php-fpm:dev-next dev-next
 docker push regitcars/php-fpm:dev-next
 ```

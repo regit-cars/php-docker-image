@@ -3,7 +3,7 @@ FROM php:8.0-fpm-alpine
 # install packages and build tools
 RUN apk --no-cache --update add \
     gcc musl-dev make curl bash openssl openssl-dev autoconf shadow \
-    freetype-dev libjpeg-turbo-dev libpng-dev curl libxml2-dev libmemcached-dev icu-dev g++ \
+    freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev curl libxml2-dev libmemcached-dev icu-dev g++ \
     libzip libzip-dev libressl3.1-libcrypto oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
     gettext-dev gmp-dev imap-dev unzip git
 
@@ -24,7 +24,7 @@ RUN docker-php-ext-install intl
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install xsl
 RUN docker-php-ext-install mbstring
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install gd
 RUN docker-php-ext-enable imap
 

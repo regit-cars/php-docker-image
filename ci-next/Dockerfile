@@ -43,13 +43,13 @@ RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/p
  consolidation/robo:^1.0 --no-interaction
 
 
-RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v2.phar
+RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v3.phar
 RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.phar
 RUN curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar
 RUN curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar
 RUN curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar
 RUN curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/3.18.2/psalm.phar
-RUN curl -L -o /usr/local/bin/psalm4 https://github.com/vimeo/psalm/releases/download/4.6.1/psalm.phar
+RUN curl -L -o /usr/local/bin/psalm4 https://github.com/vimeo/psalm/releases/download/4.7.3/psalm.phar
 
 RUN chmod +x /usr/local/bin/php-cs-fixer
 RUN chmod +x /usr/local/bin/phpunit

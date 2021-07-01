@@ -3,7 +3,7 @@ FROM regitcars/php-fpm:ci
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-RUN pecl install xdebug
+RUN /usr/local/bin/pickle/bin/pickle install xdebug
 RUN docker-php-ext-enable xdebug
 
 # If you use Alpine, you need to set this value to "alpine"

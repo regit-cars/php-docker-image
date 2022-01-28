@@ -49,6 +49,7 @@ RUN curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar
 RUN curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar
 RUN curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar
 RUN curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/4.8.1/psalm.phar
+RUN curl -L -o /usr/local/bin/phpstan https://github.com/phpstan/phpstan/releases/download/1.4.2/phpstan.phar
 
 RUN chmod +x /usr/local/bin/php-cs-fixer
 RUN chmod +x /usr/local/bin/phpunit
@@ -56,6 +57,7 @@ RUN chmod +x /usr/local/bin/phploc
 RUN chmod +x /usr/local/bin/phpmd
 RUN chmod +x /usr/local/bin/phpcpd
 RUN chmod +x /usr/local/bin/psalm
+RUN chmod +x /usr/local/bin/phpstan
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini

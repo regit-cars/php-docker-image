@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-alpine
+FROM php:8.1-fpm-alpine
 
 # install packages and build tools
 RUN apk --no-cache --update add \
@@ -48,7 +48,7 @@ RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.phar
 RUN curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar
 RUN curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar
 RUN curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar
-RUN curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/4.8.1/psalm.phar
+RUN curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/4.10.0/psalm.phar
 RUN curl -L -o /usr/local/bin/phpstan https://github.com/phpstan/phpstan/releases/download/1.4.2/phpstan.phar
 
 RUN chmod +x /usr/local/bin/php-cs-fixer

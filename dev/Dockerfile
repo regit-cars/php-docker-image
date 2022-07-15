@@ -3,8 +3,10 @@ FROM regitcars/php-fpm:ci
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-RUN /usr/local/bin/pickle/bin/pickle install xdebug
-RUN docker-php-ext-enable xdebug
+RUN apk --no-cache --update add gcc g++ make musl-dev autoconf \
+    && pecl install xdebug \
+	&& docker-php-ext-enable xdebug \
+    && apk del gcc g++ make musl-dev autoconf
 
 # If you use Alpine, you need to set this value to "alpine"
 ENV current_os=alpine

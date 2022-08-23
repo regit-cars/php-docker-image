@@ -3,7 +3,7 @@ FROM regitcars/php-fpm:ci
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-RUN apk --no-cache --update add gcc g++ make musl-dev autoconf \
+RUN apk --no-cache --update add gcc g++ make musl-dev autoconf git \
     && pecl install xdebug \
 	&& docker-php-ext-enable xdebug \
     && apk del gcc g++ make musl-dev autoconf

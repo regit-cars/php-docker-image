@@ -40,7 +40,7 @@ RUN mkdir /composer
 ENV COMPOSER_HOME="/composer"
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v3.phar \
-    && curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.phar \
+    && curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-10.phar \
     && curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar \
     && curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar \
     && curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar \

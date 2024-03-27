@@ -4,7 +4,7 @@ FROM php:8.1-rc-fpm-alpine
 RUN apk --no-cache --update add \
     gcc musl-dev make curl bash openssl openssl-dev autoconf shadow \
     freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev curl libxml2-dev libmemcached-dev icu-dev g++ \
-    libzip libzip-dev libssl1.1 libcrypto1.1 oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
+    libzip libzip-dev libssl3 libcrypto3 oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
     gettext-dev gmp-dev imap-dev unzip git
 
 RUN docker-php-ext-install mysqli
@@ -44,7 +44,7 @@ RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/p
 
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v3.phar
-RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-9.phar
+RUN curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-10.phar
 RUN curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar
 RUN curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar
 RUN curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar

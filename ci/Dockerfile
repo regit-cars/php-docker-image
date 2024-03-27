@@ -4,7 +4,7 @@ FROM php:8.1-fpm-alpine
 RUN apk --no-cache --update add \
     gcc g++ musl-dev make curl bash openssl openssl-dev autoconf shadow \
     freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev libxml2-dev libmemcached-dev icu-dev \
-    libzip libzip-dev libssl1.1 libcrypto1.1 oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
+    libzip libzip-dev libssl3 libcrypto3 oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
     gettext-dev gmp-dev imap-dev unzip
 
 RUN docker-php-ext-install mysqli \

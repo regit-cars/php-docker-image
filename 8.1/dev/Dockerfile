@@ -1,4 +1,4 @@
-FROM regitcars/php-fpm:8.1-ci
+FROM regitcars/php:8.1-fpm-ci
 
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini

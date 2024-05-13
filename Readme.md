@@ -1,6 +1,6 @@
 # Regit docker images
 
-Docker images used for setting up development and speeding up CI builds in the Regit project.
+Docker images used for setting up development and speeding up CI builds in Regit projects.
 
 ## Images organisation
 
@@ -92,12 +92,26 @@ Enter your username and password to log in.
 
 > **Note:** You need to have a Docker Hub account to log in and the necessary permissions to push images to the Docker Hub.
 
-### 2. Push the CI image
+### 2. Push the image
 
 ```terminal
-docker push regitcars/php:X.Y-fpm-ci
+docker push regitcars/php:<version>-fpm-<environment>
 ```
 
-Where `X.Y` is the PHP version of the image you want to push.
+Where `version` will be the PHP version of the image you want to push, and `environment` will be either `ci` or `dev`.
 
 > **Note:** Before pushing an image, make sure you have logged in to Docker and the image has been built successfully.
+
+For example, to push the `8.2-fpm-ci` image, run the following command:
+
+```terminal
+docker push regitcars/php:8.2-fpm-ci
+```
+
+To push the `8.3-fpm-dev` image, run the following command:
+
+```terminal
+docker push regitcars/php:8.3-fpm-dev
+```
+
+For the rest of versions and environments, follow the same procedure.

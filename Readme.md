@@ -82,17 +82,7 @@ We need to push the images to Docker Hub to make them available for use in the C
 
 To push the images to Docker Hub, follow these steps:
 
-### 1. Login to Docker
-
-```terminal
-docker login
-```
-
-Enter your username and password to log in.
-
-> **Note:** You need to have a Docker Hub account to log in and the necessary permissions to push images to the Docker Hub.
-
-### 2. Push the image
+### 3. Push the CI image
 
 ```terminal
 docker push regitcars/php:<version>-fpm-<environment>
@@ -100,18 +90,21 @@ docker push regitcars/php:<version>-fpm-<environment>
 
 Where `version` will be the PHP version of the image you want to push, and `environment` will be either `ci` or `dev`.
 
-> **Note:** Before pushing an image, make sure you have logged in to Docker and the image has been built successfully.
-
 For example, to push the `8.2-fpm-ci` image, run the following command:
 
 ```terminal
 docker push regitcars/php:8.2-fpm-ci
 ```
+> **Note:** Before pushing an image, make sure you have logged in to Docker and the image has been built successfully.
 
-To push the `8.3-fpm-dev` image, run the following command:
+## Dev image build
+
+### 4. Rebuild and push the dev image
 
 ```terminal
-docker push regitcars/php:8.3-fpm-dev
+cd 8.2/dev 
+docker build -t regitcars/php:8.2-fpm-dev .
+docker push regitcars/php:8.2-fpm-dev
 ```
 
 For the rest of versions and environments, follow the same procedure.

@@ -29,6 +29,15 @@ RUN docker-php-ext-install mysqli \
     && docker-php-ext-install ftp \
     && docker-php-ext-install ctype
 
+RUN pecl download igbinary \
+    && tar -xzf igbinary-*.tgz \
+    && cd igbinary-* \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install \
+    && docker-php-ext-enable igbinary
+
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
@@ -41,7 +50,6 @@ RUN mkdir /composer
 ENV COMPOSER_HOME="/composer"
 RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/php-parallel-lint \
  consolidation/robo:^2.0 --no-interaction
-
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v3.phar \
   && curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-10.phar \
@@ -61,11 +69,15 @@ RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-c
 COPY php.ini /usr/local/etc/php/php.ini
 COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-RUN wget https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar -O /usr/local/bin/pickle \
-  && chmod +x /usr/local/bin/pickle
-
-RUN /usr/local/bin/pickle install memcached \
-  && docker-php-ext-enable memcached
+# install memcached with igbinary support
+RUN pecl download memcached \
+    && tar -xzf memcached-*.tgz \
+    && cd memcached-* \
+    && phpize \
+    && ./configure --enable-memcached-igbinary \
+    && make \
+    && make install \
+    && docker-php-ext-enable memcached
 
 RUN chmod -R 0777 /composer/cache
 

@@ -2,19 +2,15 @@ FROM php:8.3-fpm-alpine
 
 # Install permanent dependencies
 RUN apk add --no-cache \
-    curl bash unzip git \
-    libzip libssl3 libcrypto3 \
-    libxml2 icu libjpeg-turbo libpng freetype libwebp \
-    oniguruma libgcrypt libxslt gettext gmp imap openssl curl
-
-# Install temporal dependencies
-RUN apk add --no-cache --virtual .build-deps \
     gcc g++ make musl-dev autoconf openssl-dev \
     libxml2-dev libmemcached-dev icu-dev \
     freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
     libzip-dev oniguruma-dev libgcrypt-dev libxslt-dev \
     gettext-dev gmp-dev imap-dev linux-headers \
-    shadow
+    shadow curl bash unzip git \
+    libzip libssl3 libcrypto3 \
+    libxml2 icu libjpeg-turbo libpng freetype libwebp \
+    oniguruma libgcrypt libxslt gettext gmp imap openssl curl
 
 # Install PHP extensions
 RUN docker-php-ext-install mysqli \

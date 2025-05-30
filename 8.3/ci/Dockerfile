@@ -1,12 +1,22 @@
 FROM php:8.3-fpm-alpine
 
-# install packages and build tools
-RUN apk --no-cache --update add \
-    gcc musl-dev make curl bash openssl openssl-dev autoconf shadow \
-    freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev curl libxml2-dev libmemcached-dev icu-dev g++ \
-    libzip libzip-dev libssl3 libcrypto3 oniguruma oniguruma-dev libgcrypt-dev libxslt-dev \
-    gettext-dev gmp-dev imap-dev unzip git linux-headers
+# Install permanent dependencies
+RUN apk add --no-cache \
+    curl bash unzip git \
+    libzip libssl3 libcrypto3 \
+    libxml2 icu libjpeg-turbo libpng freetype libwebp \
+    oniguruma libgcrypt libxslt gettext gmp imap openssl curl
 
+# Install temporal dependencies
+RUN apk add --no-cache --virtual .build-deps \
+    gcc g++ make musl-dev autoconf openssl-dev \
+    libxml2-dev libmemcached-dev icu-dev \
+    freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
+    libzip-dev oniguruma-dev libgcrypt-dev libxslt-dev \
+    gettext-dev gmp-dev imap-dev linux-headers \
+    shadow
+
+# Install PHP extensions
 RUN docker-php-ext-install mysqli \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql \
@@ -27,7 +37,8 @@ RUN docker-php-ext-install mysqli \
     && docker-php-ext-install gd \
     && docker-php-ext-enable imap \
     && docker-php-ext-install ftp \
-    && docker-php-ext-install ctype
+    && docker-php-ext-install ctype \
+    && docker-php-ext-install mbstring
 
 RUN pecl download igbinary \
     && tar -xzf igbinary-*.tgz \
@@ -56,7 +67,7 @@ RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-c
   && curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar \
   && curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar \
   && curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar \
-  && curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/5.23.1/psalm.phar \
+  && curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/5.24.0/psalm.phar \
   && curl -L -o /usr/local/bin/phpstan https://github.com/phpstan/phpstan/releases/download/1.10.67/phpstan.phar \
   && chmod +x /usr/local/bin/php-cs-fixer \
   && chmod +x /usr/local/bin/phpunit \
@@ -85,4 +96,4 @@ WORKDIR /var/www/app
 
 EXPOSE 9000
 
-CMD php-fpm
+CMD ["php-fpm"]

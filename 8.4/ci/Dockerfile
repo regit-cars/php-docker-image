@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine3.21
 
 # Install permanent dependencies
 RUN apk add --no-cache \
@@ -6,11 +6,11 @@ RUN apk add --no-cache \
     libxml2-dev libmemcached-dev icu-dev \
     freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
     libzip-dev oniguruma-dev libgcrypt-dev libxslt-dev \
-    gettext-dev gmp-dev imap-dev linux-headers \
+    gettext-dev gmp-dev linux-headers \
     shadow curl bash unzip git \
     libzip libssl3 libcrypto3 \
     libxml2 icu libjpeg-turbo libpng freetype libwebp \
-    oniguruma libgcrypt libxslt gettext gmp imap openssl curl
+    oniguruma libgcrypt libxslt gettext gmp openssl curl
 
 # Install PHP extensions
 RUN docker-php-ext-install mysqli \
@@ -18,7 +18,6 @@ RUN docker-php-ext-install mysqli \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install soap \
     && docker-php-ext-install zip \
-    && docker-php-ext-install imap \
     && docker-php-ext-install opcache \
     && docker-php-ext-install calendar \
     && docker-php-ext-install sockets \
@@ -31,7 +30,6 @@ RUN docker-php-ext-install mysqli \
     && docker-php-ext-install xsl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install gd \
-    && docker-php-ext-enable imap \
     && docker-php-ext-install ftp \
     && docker-php-ext-install ctype \
     && docker-php-ext-install mbstring

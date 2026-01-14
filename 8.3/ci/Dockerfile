@@ -63,7 +63,7 @@ RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-c
   && curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar \
   && curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar \
   && curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar \
-  && curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/5.24.0/psalm.phar \
+  && curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/6.14.3/psalm.phar \
   && curl -L -o /usr/local/bin/phpstan https://github.com/phpstan/phpstan/releases/download/1.10.67/phpstan.phar \
   && chmod +x /usr/local/bin/php-cs-fixer \
   && chmod +x /usr/local/bin/phpunit \

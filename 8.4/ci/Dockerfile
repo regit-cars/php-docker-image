@@ -57,26 +57,27 @@ RUN curl -L -o /usr/local/bin/composer https://getcomposer.org/composer-stable.p
 ENV PATH="/usr/local/bin:/composer/vendor/bin:${PATH}"
 RUN mkdir /composer
 ENV COMPOSER_HOME="/composer"
-RUN composer global require pdepend/pdepend edgedesign/phpqa php-parallel-lint/php-parallel-lint \
- consolidation/robo:^2.0 --no-interaction
+RUN composer global require \
+    pdepend/pdepend \
+    edgedesign/phpqa:^1.27 \
+    php-parallel-lint/php-parallel-lint \
+    consolidation/robo:^4.0 \
+    --no-interaction
 
 RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-cs-fixer-v3.phar \
   && curl -L -o /usr/local/bin/phpunit https://phar.phpunit.de/phpunit-10.phar \
   && curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar \
   && curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar \
   && curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar \
-  && curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/6.15.1/psalm.phar \
-  && curl -L -o /usr/local/bin/phpstan https://github.com/phpstan/phpstan/releases/download/1.10.67/phpstan.phar \
+  && curl -L -o /usr/local/bin/phpstan https://github.com/phpstan/phpstan/releases/download/2.2.0/phpstan.phar \
   && chmod +x /usr/local/bin/php-cs-fixer \
   && chmod +x /usr/local/bin/phpunit \
   && chmod +x /usr/local/bin/phploc \
   && chmod +x /usr/local/bin/phpmd \
   && chmod +x /usr/local/bin/phpcpd \
-  && chmod +x /usr/local/bin/psalm \
   && chmod +x /usr/local/bin/phpstan
 
-COPY php.ini /usr/local/etc/php/php.ini
-COPY custom.ini /usr/local/etc/php/conf.d/custom.ini
+RUN phpqa --version && robo --version && phpstan --version
 
 # install memcached with igbinary support
 RUN pecl download memcached \

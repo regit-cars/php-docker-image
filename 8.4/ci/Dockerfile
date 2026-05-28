@@ -1,4 +1,4 @@
-FROM php:8.4-fpm-alpine3.21
+FROM php:8.4-fpm-alpine
 
 # Install permanent dependencies
 RUN apk add --no-cache \
@@ -6,11 +6,11 @@ RUN apk add --no-cache \
     libxml2-dev libmemcached-dev icu-dev \
     freetype-dev libjpeg-turbo-dev libpng-dev libwebp-dev \
     libzip-dev oniguruma-dev libgcrypt-dev libxslt-dev \
-    gettext-dev gmp-dev linux-headers \
+    gettext-dev gmp-dev imap-dev krb5-dev linux-headers \
     shadow curl bash unzip git \
-    libzip libssl3 libcrypto3 \
+    libzip libssl3 libcrypto3 krb5-libs \
     libxml2 icu libjpeg-turbo libpng freetype libwebp \
-    oniguruma libgcrypt libxslt gettext gmp openssl curl
+    oniguruma libgcrypt libxslt gettext gmp imap openssl curl
 
 # Install PHP extensions
 RUN docker-php-ext-install mysqli \
@@ -33,6 +33,10 @@ RUN docker-php-ext-install mysqli \
     && docker-php-ext-install ftp \
     && docker-php-ext-install ctype \
     && docker-php-ext-install mbstring
+
+# PHP 8.4 IMAP extension is distributed via PECL
+RUN pecl install imap \
+    && docker-php-ext-enable imap
 
 RUN pecl download igbinary \
     && tar -xzf igbinary-*.tgz \
@@ -61,7 +65,7 @@ RUN curl -L -o /usr/local/bin/php-cs-fixer https://cs.symfony.com/download/php-c
   && curl -L -o /usr/local/bin/phploc https://phar.phpunit.de/phploc.phar \
   && curl -L -o /usr/local/bin/phpmd https://phpmd.org/static/latest/phpmd.phar \
   && curl -L -o /usr/local/bin/phpcpd https://phar.phpunit.de/phpcpd.phar \
-  && curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/5.24.0/psalm.phar \
+  && curl -L -o /usr/local/bin/psalm https://github.com/vimeo/psalm/releases/download/6.15.1/psalm.phar \
   && curl -L -o /usr/local/bin/phpstan https://github.com/phpstan/phpstan/releases/download/1.10.67/phpstan.phar \
   && chmod +x /usr/local/bin/php-cs-fixer \
   && chmod +x /usr/local/bin/phpunit \

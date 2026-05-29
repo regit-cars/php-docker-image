@@ -15,6 +15,12 @@ The new folder distribution in the php-docker-image repository is as follows:
 \8.2
 ....\ci
 ....\dev
+\8.4
+....\ci
+....\dev
+\8.5
+....\ci
+....\dev
 \X.Y
 ....\ci
 ....\dev
@@ -22,7 +28,7 @@ The new folder distribution in the php-docker-image repository is as follows:
 
 Where:
 
-- **8.1, 8.2, X.Y:** The different PHP versions available.
+- **8.1, 8.2, 8.4, 8.5, X.Y:** The different PHP versions available.
 - **ci:** Contains the Dockerfile for the CI image used in the CI pipeline.
 - **dev:** Contains the Dockerfile for the development image used in the local development environment.
 
@@ -37,6 +43,8 @@ e.g.:
 
 regitcars/php:8.2-fpm-ci
 regitcars/php:8.1-fpm-dev
+regitcars/php:8.5-fpm-ci
+regitcars/php:8.5-fpm-dev
 regitcars/php:X.Y-fpm-dev
 ```
 
@@ -108,3 +116,21 @@ docker push regitcars/php:8.2-fpm-dev
 ```
 
 For the rest of versions and environments, follow the same procedure.
+
+### PHP 8.5
+
+Build and push the CI image:
+
+```terminal
+cd 8.5/ci
+docker build -t regitcars/php:8.5-fpm-ci .
+docker push regitcars/php:8.5-fpm-ci
+```
+
+Build and push the dev image (requires CI image built first):
+
+```terminal
+cd 8.5/dev
+docker build -t regitcars/php:8.5-fpm-dev .
+docker push regitcars/php:8.5-fpm-dev
+```

@@ -1,4 +1,5 @@
-FROM php:8.4-fpm-alpine
+# Pinned 2026-05-28 — verify latest 8.5.x on Docker Hub before bumping
+FROM php:8.5.6-fpm-alpine
 
 # Install permanent dependencies
 RUN apk add --no-cache \
@@ -12,16 +13,14 @@ RUN apk add --no-cache \
     libxml2 icu libjpeg-turbo libpng freetype libwebp \
     oniguruma libgcrypt libxslt gettext gmp imap openssl curl
 
-# Install PHP extensions
+# Install PHP extensions (opcache is pre-enabled in official php-fpm; do not docker-php-ext-install opcache on PHP 8.5+)
 RUN docker-php-ext-install mysqli \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install soap \
     && docker-php-ext-install zip \
-    && docker-php-ext-install opcache \
     && docker-php-ext-install calendar \
     && docker-php-ext-install sockets \
-    && docker-php-ext-install exif \
     && docker-php-ext-install gettext \
     && docker-php-ext-install gmp \
     && docker-php-ext-install pcntl \
@@ -32,9 +31,10 @@ RUN docker-php-ext-install mysqli \
     && docker-php-ext-install gd \
     && docker-php-ext-install ftp \
     && docker-php-ext-install ctype \
-    && docker-php-ext-install mbstring
+    && docker-php-ext-install mbstring \
+    && docker-php-ext-install exif
 
-# PHP 8.4 IMAP extension is distributed via PECL
+# PHP 8.5 IMAP extension is distributed via PECL
 RUN pecl install imap \
     && docker-php-ext-enable imap
 
